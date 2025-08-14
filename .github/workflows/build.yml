@@ -35,7 +35,7 @@ jobs:
 
     - name: Build Blockbook binary
       if: steps.cache-blockbook.outputs.cache-hit != 'true'
-      run: make build BASE_IMAGE=debian:11
+      run: make build BASE_IMAGE=debian:11 ARGS="-j3"
 
     - name: Generate testnet config
       run: ./contrib/scripts/build-blockchaincfg.sh dogecoin_testnet_dogeos && mv build/blockchaincfg.json build/blockchaincfg_testnet.json
