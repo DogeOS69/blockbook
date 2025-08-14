@@ -23,8 +23,19 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+    - name: Cache Blockbook binary
+      id: cache-blockbook
+      uses: actions/cache@v4
+      with:
+        path: build/blockbook
+        key: ${{ runner.os }}-blockbook-${{ hashFiles('go.mod', 'go.sum', '**/*.go', 'Makefile') }}
+        restore-keys: |
+          ${{ runner.os }}-blockbook-${{ hashFiles('go.mod', 'go.sum') }}-
+          ${{ runner.os }}-blockbook-
+
     - name: Build Blockbook binary
-      run: make build
+      if: steps.cache-blockbook.outputs.cache-hit != 'true'
+      run: make build BASE_IMAGE=debian:11
 
     - name: Generate testnet config
       run: ./contrib/scripts/build-blockchaincfg.sh dogecoin_testnet_dogeos && mv build/blockchaincfg.json build/blockchaincfg_testnet.json
