@@ -2,9 +2,9 @@ name: Build and Publish Docker Images
 
 on:
   push:
-    branches: [ master ]
+    branches: [ dogeos ]
   pull_request:
-    branches: [ master ]
+    branches: [ dogeos ]
 
 jobs:
   build:
