@@ -12,7 +12,7 @@
     "blockbook_public": 19139
   },
   "ipc": {
-    "rpc_url_template": "http://dogecoin-testnet:44556",
+    "rpc_url_template": "http://dogecoin-testnet:44555",
     "rpc_user": "user",
     "rpc_pass": "password_test",
     "rpc_timeout": 25,
