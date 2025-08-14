@@ -12,6 +12,7 @@ build/blockchaincfg.json
 build/ldb
 build/sst_dump
 build/*.deb
+build/*.json
 .bin-image
 .deb-image
 \.idea/
