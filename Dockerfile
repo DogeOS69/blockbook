@@ -1,6 +1,7 @@
 FROM ubuntu:22.04
 
 ARG NETWORK=testnet
+ARG BASE_IMAGE=ubuntu:22.04
 
 RUN apt-get update && apt-get install -y libgflags2.2 libsnappy1v5 zlib1g libzstd1 libzmq5 libbz2-1.0 liblz4-1 jq ca-certificates
 
