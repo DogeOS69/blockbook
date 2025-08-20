@@ -33,6 +33,13 @@ if [ -n "$RPC_PASS" ]; then
   echo "Overriding rpc_pass to $RPC_PASS"
   jq --arg pass "$RPC_PASS" '.rpc_pass = $pass' /blockchaincfg.json > /tmp/cfg.json && mv /tmp/cfg.json /blockchaincfg.json || echo "Failed to override rpc_pass"
 fi
+if [ -n "$MESSAGE_QUEUE_BINDING" ]; then
+  echo "Overriding message_queue_binding to $MESSAGE_QUEUE_BINDING"
+  jq --arg mq "$MESSAGE_QUEUE_BINDING" '.message_queue_binding = $mq' /blockchaincfg.json > /tmp/cfg.json && mv /tmp/cfg.json /blockchaincfg.json || echo "Failed to override message_queue_binding"
+else
+  echo "Disabling message queue binding"
+  jq 'del(.message_queue_binding)' /blockchaincfg.json > /tmp/cfg.json && mv /tmp/cfg.json /blockchaincfg.json || echo "Failed to remove message_queue_binding"
+fi
 echo "Final config: $(cat /blockchaincfg.json)"
 echo "Configuration complete. Starting blockbook with args: $@"
 exec "$@"
