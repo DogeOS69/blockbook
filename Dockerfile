@@ -34,7 +34,8 @@ if [ -n "$RPC_PASS" ]; then
   jq --arg pass "$RPC_PASS" '.rpc_pass = $pass' /blockchaincfg.json > /tmp/cfg.json && mv /tmp/cfg.json /blockchaincfg.json || echo "Failed to override rpc_pass"
 fi
 echo "Final config: $(cat /blockchaincfg.json)"
-exec /usr/bin/blockbook -blockchaincfg=/blockchaincfg.json -datadir=/data -sync -public=:19139 -internal=:19039 -logtostderr -debug
+echo "Configuration complete. Starting blockbook with args: $@"
+exec "$@"
 EOF
 
 RUN chmod +x /entrypoint.sh
