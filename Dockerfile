@@ -3,7 +3,8 @@ FROM ubuntu:22.04
 ARG NETWORK=testnet
 ARG BASE_IMAGE=ubuntu:22.04
 
-RUN apt-get update && apt-get install -y libgflags2.2 libsnappy1v5 zlib1g libzstd1 libzmq5 libbz2-1.0 liblz4-1 jq ca-certificates
+RUN apt-get update && apt-get install -y libgflags2.2 libsnappy1v5 zlib1g libzstd1 libzmq5 libbz2-1.0 liblz4-1 jq ca-certificates \
+    && dpkg --compare-versions "$(dpkg-query -W -f='${Version}' ca-certificates)" ge 20260816ubuntu0.22.04.1
 
 COPY build/blockbook /usr/bin/blockbook
 COPY build/blockchaincfg_testnet.json /blockchaincfg_testnet.json

@@ -2,6 +2,8 @@ module github.com/trezor/blockbook
 
 go 1.23.0
 
+toolchain go1.26.10
+
 require (
 	github.com/ava-labs/avalanchego v1.12.1
 	github.com/bsm/go-vlq v0.0.0-20150828105119-ec6e8d4f5f4e
