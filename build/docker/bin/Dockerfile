@@ -4,12 +4,13 @@ FROM $BASE_IMAGE
 ARG DEBIAN_FRONTEND=noninteractive
 ARG PORTABLE_ROCKSDB
 # Override alongside BASE_IMAGE when using another supported distribution.
-ARG CA_CERTIFICATES_VERSION=20260816ubuntu0.22.04.1
+ARG CA_CERTIFICATES_MIN_VERSION=20260816ubuntu0.22.04.1
 
 RUN apt-get update && \
-    apt-get install -y ca-certificates=${CA_CERTIFICATES_VERSION} build-essential git wget pkg-config lxc-dev libzmq3-dev \
+    apt-get install -y ca-certificates build-essential git wget pkg-config lxc-dev libzmq3-dev \
                        libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev \
                        libzstd-dev liblz4-dev graphviz && \
+    dpkg --compare-versions "$(dpkg-query -W -f='${Version}' ca-certificates)" ge "${CA_CERTIFICATES_MIN_VERSION}" && \
     apt-get clean
 ARG GOLANG_VERSION
 ENV GOLANG_VERSION=go1.26.10
